@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load mathfilters %}
+
+{% block title %}物件の詳細{% endblock title %}
+
+{% block content %}
+
+<h4 class="mt-4 border-bottom">物件の詳細</h4>
+
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>物件ID</th>
+        <td>{{ rentroom.id }}</td>
+    </tr>
+    <tr>
+        <th>所在地</th>
+        <td>{{ rentroom.pref_name|add:rentroom.city_name|add:rentroom.district_name }}</td>
+    </tr>
+    <tr>
+        <th>築年</th>
+        <td>{{ rentroom.built_year }}</td>
+    </tr>
+    <tr>
+        <th>構造</th>
+        <td>{{ rentroom.structure }}</td>
+    </tr>
+    <tr>
+        <th>マンション最上階数</th>
+        <td>{{ rentroom.top_floor_num }}</td>
+    </tr>
+    <tr>
+        <th>間取り</th>
+        <td>{{ rentroom.room_type }}</td>
+    </tr>
+    <tr>
+        <th>占有面積</th>
+        <td>{{ rentroom.area }}</td>
+    </tr>
+    <tr>
+        <th>平米単価</th>
+        <td>{{ rentroom.price }}</td>
+    </tr>
+    <tr>
+        <th>最寄り駅</th>
+        <td>{{ rentroom.nearest_station }}</td>
+    </tr>
+    <tr>
+        <th>最寄り駅までの距離</th>
+        <td>{{ rentroom.dist_to_nearest_station }}</td>
+    </tr>
+
+
+</table>
+
+<form action="{% url 'iekari:edit_cart' rentroom_id=rentroom.id %}?from_page={{page}}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="add/delete" class="btn btn-primary mt-2">
+</form>
+
+<a href="{% url 'iekari:rentroom_list' %}?page={{ page }}">一覧に戻る</a>
+
+{% endblock %}

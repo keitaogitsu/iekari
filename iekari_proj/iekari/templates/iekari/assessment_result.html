@@ -1,0 +1,22 @@
+<!-- [ REWRITE 2 ] ファイル追加　-->
+
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load staticfiles %}
+
+{% block title %}価格査定{% endblock title %}
+
+{% block content %}
+<h4 class="mt-4 mb-5 border-bottom">価格査定結果</h4>
+
+<h4>物件条件からの家賃予測結果</h4>
+<ul>
+    <li>最寄り駅からの距離：{{station}} m</li>
+    <li>敷地面積：{{area}} ㎡</li>
+    <li>築後年数：{{year}} 年</li>
+</ul>
+<p>この物件の値段は、<span style="font-size:200%;font-weight:bold;">{{ result }}</span>円です！</p>
+
+<a href="{% url 'iekari:assess_form' %}" class="btn btn-secondary btn-sm">再検索</a>
+<a href="{% url 'index' %}" class="btn btn-secondary btn-sm">戻る</a>
+{% endblock %}

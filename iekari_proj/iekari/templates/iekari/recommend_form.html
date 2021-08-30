@@ -1,0 +1,65 @@
+<!-- [ REWRITE ] ファイル追加　-->
+
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load staticfiles %}
+
+{% block title %}おすすめ物件の検索{% endblock title %}
+
+{% block content %}
+<h4 class="mt-4 mb-5 border-bottom">おすすめ物件の検索</h4>
+
+{% if user.is_authenticated %}
+<!-- ログインしていないと、ユーザー基盤検索は表示しない -->
+<h4>あなたにおすすめの物件を探す(既存ユーザーへのリコメンド)</h4>
+<form action="{% url 'iekari:recommend_result' %}" method="get">
+    <input type="hidden" name="use_profile" value="true">
+    <div class="form-group row">
+        <label for="limit">表示数:</label>
+        <input type="number" name="limit" required>
+    </div>
+    <div class="form-group row">
+        <label for="base">検索方法:</label>
+        <label><input type="radio" name="search_base" value="user" checked> ユーザー基盤 </label>
+        <label><input type="radio" name="search_base" value="item"> 物件基盤 </label>
+    </div>
+    <div class="form-group row">
+        <div class="offset-md-3 col-md-9">
+            <button type="submit" class="btn btn-primary">送信</button>
+        </div>
+    </div>
+</form>
+{% endif %}
+
+<hr>
+<h4>こんな人におすすめの物件を探す(新規ユーザーへのリコメンド)</h4>
+<form action="{% url 'iekari:recommend_result' %}" method="get">
+    <div class="form-group row">
+        <label for="age">年齢:</label>
+        <input type="number" name="age" required>
+    </div>
+    <div class="form-group row">
+        <label for="base">性別:</label>
+        <label><input type="radio" name="gender" value="male" checked> 男 </label>
+        <label><input type="radio" name="gender" value="female"> 女 </label>
+    </div>
+    <div class="form-group row">
+        <label for="household">世帯人数:</label>
+        <input type="number" name="household" required>
+    </div>
+    <div class="form-group row">
+        <label for="station">最寄り駅:</label>
+        <input type="text" name="station" required>
+    </div>
+    <div class="form-group row">
+        <label for="limit">表示数:</label>
+        <input type="number" name="limit">
+    </div>
+    <div class="form-group row">
+        <div class="offset-md-3 col-md-9">
+            <button type="submit" class="btn btn-primary">送信</button>
+        </div>
+    </div>
+</form>
+<a href="{% url 'index' %}" class="btn btn-secondary btn-sm">戻る</a>
+{% endblock %}

@@ -1,0 +1,35 @@
+<!-- [ REWRITE 2 ] ファイル追加　-->
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load staticfiles %}
+
+{% block title %}価格査定{% endblock title %}
+
+{% block content %}
+<h4 class="mt-4 mb-5 border-bottom">価格査定</h4>
+
+<h4>物件条件からの家賃予測</h4>
+<form action="{% url 'iekari:assess_result' %}" method="get">
+    <div class="form-group row">
+        <label for="station">最寄り駅からの距離（単位：m）</label>
+        <input name="station" required>
+        {% if  %}
+        <p>※数字を入力してください</p>
+        {% endif %}
+    </div>
+    <div class="form-group row">
+        <label for="area">敷地面積（単位：㎡）</label>
+        <input type="number" name="area" required>
+    </div>
+    <div class="form-group row">
+        <label for="year">築後年数（単位：年）</label>
+        <input type="number" name="year" required>
+    </div>
+    <div class="form-group row">
+        <div class="offset-md-3 col-md-9">
+            <button type="submit" class="btn btn-primary">送信</button>
+        </div>
+    </div>
+</form>
+<a href="{% url 'index' %}" class="btn btn-secondary btn-sm">戻る</a>
+{% endblock %}
